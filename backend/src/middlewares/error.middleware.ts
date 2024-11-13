@@ -11,7 +11,7 @@ const ErrorMiddleware = (
     res.status(err.code).json({ message: err.message });
     return;
   }
-  res.status(500).json({ message: `Something went wrong: ${err.message}` });
+  res.status(500).json({ message: `Something went wrong: ${err.message}`, trace: err.stack });
 };
 
 export default ErrorMiddleware;

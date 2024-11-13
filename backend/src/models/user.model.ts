@@ -1,50 +1,46 @@
-import { PrismaClient } from "@prisma/client";
+import p from ".";
 import { ForgotPassUser, User } from "../interfaces/user.interface";
 
 class UserModel {
-  private readonly p: PrismaClient;
-  constructor(p: PrismaClient) {
-    this.p = p;
-  }
-
-  async createUser(user: User) {
-    return await this.p.user.create({
+  static async createUser(user: User) {
+    return await p.user.create({
       data: user,
       select: { email: true, id: true, fullName: true, userType: true },
     });
   }
 
-  async getUser(email: string) {
-    return await this.p.user.findFirstOrThrow({
+  static async getUser(email: string) {
+    return await p.user.findUnique({
       where: { email },
       select: {
         email: true,
         id: true,
         fullName: true,
-        phone: true,
+        userType: true,
         password: true,
+        phone: true,
       },
     });
   }
 
-  async updateUser(user: User, id: number) {
-    return await this.p.user.update({
+  static async updateUser(user: User, id: number) {
+    return await p.user.update({
       data: user,
       where: { id },
       select: { email: true, id: true, fullName: true, userType: true },
     });
   }
 
-  async updatePassword(user: ForgotPassUser) {
-    return await this.p.user.update({
+  static async updatePassword(user: ForgotPassUser) {
+    return await p.user.update({
       data: { password: user.password },
       where: { email: user.email },
       select: { email: true, id: true, fullName: true, userType: true },
     });
   }
 
-  async deleteUser(id: number) {
-    return await this.p.user.delete({
+  static async deleteUser(id: number) {
+    return await p.user.delete({
       where: { id },
       select: { email: true, id: true, fullName: true, phone: true },
     });
