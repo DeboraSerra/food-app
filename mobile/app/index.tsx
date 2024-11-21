@@ -1,3 +1,4 @@
+import { Link } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Image, StyleSheet, Text, TouchableOpacity } from "react-native";
 import { Screen } from "react-native-screens";
@@ -11,9 +12,9 @@ export default function Index() {
         style={{ alignSelf: "center" }}
       />
       <Text style={s.text}>What are you looking for?</Text>
-      <TouchableOpacity style={s.button}>
+      <Link href="/dashboard" style={s.button}>
         <Text style={s.btnText}>Order a Meal</Text>
-      </TouchableOpacity>
+      </Link>
       <TouchableOpacity style={s.button}>
         <Text style={s.btnText}>I’m a Business</Text>
       </TouchableOpacity>
